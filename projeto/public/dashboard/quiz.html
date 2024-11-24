@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" href="images/favicon.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Muscle</title>
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <div class="conteiner-quiz">
+    <aside>
+        <div class="img-aside">
+            <img src="../assets/paiMusculacao.jpg" alt="">
+        </div>
+        <div class="bemvindo">
+            Bem-Vindo
+        </div>
+        <div class="buttonsmeio">
+            <button><a href="../index.html">HOME</a></button>
+            <button><a href="quiz.html">QUIZ</a></button>
+            <button>PONTUAÇÃO</button>
+            <button>SAIR</button>
+        </div>
+    </aside>
+
+    <div class="tela-principal">
+        <div class='conteudos'>
+            <span> <h1>Quiz</h1></span>
+            <div class='centro' id='instrucoes'>
+                Leia a questão e clique na resposta correta
+            </div>
+            <div class='questoes'>
+                <header class='questao'>
+                    <span id='numQuestao'></span>
+                    <h2 id='pergunta'></h2>
+                </header>
+                <div class='corpo'>
+                    <ul type='A' id='alternativas'>
+                        <li id='a' value='1A' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='b' value='1B' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='c' value='1C' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='d' value='1D' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                    </ul>
+                </div>
+            </div>
+            <div id='aviso'>Questão <span id='numero'></span> de <span id='total'></span></div>            
+        </div>
+    </div>
+<!--   
+    <div class="kpis">
+        <div class="kpi">
+            <h3>KPI 1</h3>
+            <p>RESULTADO</p>
+        </div>
+        <div class="kpi">
+            <h3>KPI 2</h3>
+            <p>RESULTADO</p>
+        </div>
+        <div class="kpi">
+            <h3>KPI 3</h3>
+            <p>RESULTADO</p>
+        </div>
+
+    </div> -->
+  
+  </div>
+</body>
+</html>
+
+<script>
+    /* Aula 20 MaiaQuiz  */
+
+// var titulo = document.querySelector('h1')    
+var instrucoes = document.querySelector('#instrucoes')
+var aviso = document.querySelector('#aviso')
+//var respostaEsta = document.querySelector('#respostaEsta')
+var pontos = 0 // pontos para o placar
+var placar = 0 // placar
+
+// PERGUNTA
+var numQuestao = document.querySelector('#numQuestao')
+var pergunta = document.querySelector('#pergunta')
+
+// ALTERNATIVAS
+var a = document.querySelector('#a')
+var b = document.querySelector('#b')
+var c = document.querySelector('#c')
+var d = document.querySelector('#d')
+
+// article com a class questoes
+var articleQuestoes = document.querySelector('.questoes')
+// ol li com as alternativas
+var alternativas = document.querySelector('#alternativas')
+
+var q0 = {
+    numQuestao: 0,
+    pergunta: "Pergunta",
+    alternativaA: "Alternativa A",
+    alternativaB: "Alternativa B",
+    alternativaC: "Alternativa C",
+    alternativaD: "Alternativa D",
+    correta: "0",
+}
+
+var q1 = {
+    numQuestao: 1,
+    pergunta: "Qual é o principal músculo trabalhado no supino reto?",
+    alternativaA: "Bíceps",
+    alternativaB: "Peitoral maior",
+    alternativaC: "Deltóides",
+    alternativaD: "Tríceps",
+    correta: "Peitoral maior",
+}
+
+var q2 = {
+    numQuestao: 2,
+    pergunta: "Qual exercício é conhecido por ser o melhor para trabalhar os músculos das costas?",
+    alternativaA: "Agachamento",
+    alternativaB: "Rosca direta",
+    alternativaC: "Remada curvada",
+    alternativaD: "Elevação lateral",
+    correta: "Remada curvada",
+}
+
+var q3 = {
+    numQuestao: 3,
+    pergunta: "Qual é o principal objetivo do treino de hipertrofia?",
+    alternativaA: "Perder peso",
+    alternativaB: "Aumentar a massa muscular",
+    alternativaC: "Melhorar a flexibilidade",
+    alternativaD: "Reduzir gordura corporal",
+    correta: "Aumentar a massa muscular",
+}
+
+var q4 = {
+    numQuestao: 4,
+    pergunta: "Qual dos seguintes exercícios foca principalmente nos quadríceps?",
+    alternativaA: "Levantamento terra",
+    alternativaB: "Supino inclinado",
+    alternativaC: "Cadeira extensora",
+    alternativaD: "Rosca martelo",
+    correta: "Cadeira extensora",
+}
+
+var q5 = {
+    numQuestao: 5,
+    pergunta: "O que significa 'RM' na musculação?",
+    alternativaA: "Repetição máxima",
+    alternativaB: "Ritmo muscular",
+    alternativaC: "Rotina de musculação",
+    alternativaD: "Resistência média",
+    correta: "Repetição máxima",
+}
+
+var q6 = {
+    numQuestao: 6,
+    pergunta: "Qual exercício é ideal para fortalecer o bíceps braquial?",
+    alternativaA: "Rosca direta",
+    alternativaB: "Agachamento livre",
+    alternativaC: "Supino reto",
+    alternativaD: "Remada baixa",
+    correta: "Rosca direta",
+}
+
+var q7 = {
+    numQuestao: 7,
+    pergunta: "Qual é o nome do processo de recuperação muscular após o treino?",
+    alternativaA: "Supercompensação",
+    alternativaB: "Catabolismo",
+    alternativaC: "Exaustão muscular",
+    alternativaD: "Contração excêntrica",
+    correta: "Supercompensação",
+}
+
+var q8 = {
+    numQuestao: 8,
+    pergunta: "Qual dos seguintes suplementos é usado principalmente para aumentar energia durante o treino?",
+    alternativaA: "Creatina",
+    alternativaB: "Whey protein",
+    alternativaC: "Cafeína",
+    alternativaD: "BCAA",
+    correta: "Cafeína",
+}
+
+var q9 = {
+    numQuestao: 9,
+    pergunta: "Qual é o nome do músculo localizado na parte posterior da coxa?",
+    alternativaA: "Quadríceps",
+    alternativaB: "Glúteo máximo",
+    alternativaC: "Isquiotibiais",
+    alternativaD: "Panturrilha",
+    correta: "Isquiotibiais",
+}
+
+var q10 = {
+    numQuestao: 10,
+    pergunta: "O que é um treino 'full body'?",
+    alternativaA: "Treino focado apenas nos braços",
+    alternativaB: "Treino que trabalha o corpo inteiro em uma única sessão",
+    alternativaC: "Treino para pernas e abdômen",
+    alternativaD: "Treino para melhorar flexibilidade",
+    correta: "Treino que trabalha o corpo inteiro em uma única sessão",
+}
+
+// CONSTANTE COM UM ARRAY DE OBJETOS COM TODAS AS QUESTOES
+var questoes = [q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
+
+var numero = document.querySelector('#numero')
+var total = document.querySelector('#total')
+
+numero.textContent = q1.numQuestao
+
+var totalDeQuestoes = (questoes.length) - 1
+console.log("Total de questões " + totalDeQuestoes)
+total.textContent = totalDeQuestoes
+
+// MONTAR A 1a QUESTAO COMPLETA, para iniciar o Quiz
+numQuestao.textContent = q1.numQuestao
+pergunta.textContent = q1.pergunta
+a.textContent = q1.alternativaA
+b.textContent = q1.alternativaB
+c.textContent = q1.alternativaC
+d.textContent = q1.alternativaD
+
+// CONFIGURAR O VALUE INICIAL DA 1a QUESTAO COMPLETA
+a.setAttribute('value', '1A')
+b.setAttribute('value', '1B')
+c.setAttribute('value', '1C')
+d.setAttribute('value', '1D')
+
+// PARA MONTAR AS PROXIMAS QUESTOES
+function proximaQuestao(nQuestao) {
+    numero.textContent = nQuestao
+    numQuestao.textContent = questoes[nQuestao].numQuestao
+    pergunta.textContent = questoes[nQuestao].pergunta
+    a.textContent = questoes[nQuestao].alternativaA
+    b.textContent = questoes[nQuestao].alternativaB
+    c.textContent = questoes[nQuestao].alternativaC
+    d.textContent = questoes[nQuestao].alternativaD
+    a.setAttribute('value', nQuestao + 'A')
+    b.setAttribute('value', nQuestao + 'B')
+    c.setAttribute('value', nQuestao + 'C')
+    d.setAttribute('value', nQuestao + 'D')
+}
+
+function bloquearAlternativas() {
+    a.classList.add('bloqueado')
+    b.classList.add('bloqueado')
+    c.classList.add('bloqueado')
+    d.classList.add('bloqueado')
+}
+
+function desbloquearAlternativas() {
+    a.classList.remove('bloqueado')
+    b.classList.remove('bloqueado')
+    c.classList.remove('bloqueado')
+    d.classList.remove('bloqueado')
+}
+
+function verificarSeAcertou(nQuestao, resposta) {
+
+    var numeroDaQuestao = nQuestao.value
+    console.log("Questão " + numeroDaQuestao)
+
+    var respostaEscolhida = resposta.textContent
+    //console.log("RespU " + respostaEscolhida)
+
+    var certa = questoes[numeroDaQuestao].correta
+    //console.log("RespC " + certa)
+
+    if (respostaEscolhida == certa) {
+        //console.log("Acertou")
+        //respostaEsta.textContent = "Correta 😊"
+        pontos += 10 // pontos = pontos + 10
+    } else {
+        //console.log("Errou!")
+        //respostaEsta.textContent = "Errada 😢"
+    }
+
+    // atualizar placar
+    placar = pontos
+    instrucoes.textContent = "Pontos " + placar
+
+    // bloquear a escolha de opcoes
+    bloquearAlternativas()
+
+    setTimeout(function () {
+        //respostaEsta.textContent = '...'
+        proxima = numeroDaQuestao + 1
+
+        if (proxima > totalDeQuestoes) {
+            console.log('Fim do Jogo!')
+            fimDoJogo()
+        } else {
+            proximaQuestao(proxima)
+        }
+    }, 250)
+    desbloquearAlternativas()
+}
+
+function fimDoJogo() {
+    instrucoes.textContent = "Fim de Jogo!"
+    numQuestao.textContent = ""
+
+    var pont = ''
+    pontos == 0 ? pont = 'ponto' : pont = 'pontos'
+
+    pergunta.textContent = "Você conseguiu " + pontos + " " + pont
+
+    aviso.textContent = "Você conseguiu " + pontos + " " + pont
+
+    a.textContent = ""
+    b.textContent = ""
+    c.textContent = ""
+    d.textContent = ""
+
+    a.setAttribute('value', '0')
+    b.setAttribute('value', '0')
+    c.setAttribute('value', '0')
+    d.setAttribute('value', '0')
+
+    // OCULTAR O ARTICLE DA QUESTAO
+    articleQuestoes.style.display = 'none'
+
+    setTimeout(function () {
+        pontos = 0 // zerar placar
+        location.reload();
+    }, 2000)
+}
+
+</script>
+
+

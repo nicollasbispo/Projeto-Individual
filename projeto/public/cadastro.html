@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <script src="./js/sessao.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- link para ter icones no site da flavicon -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+
+</head>
+
+<body>
+    <!-- conteudo do header -->
+    <div class="header">
+        <div class="container">
+            <div class="logo"><img src="assets/logoHalter.png" alt=""></div>
+            <ul class="navbar">
+                <i class="fi fi-br-home"></i>
+                <li><a href="index.html">Home</a></li>
+                <i class="fi fi-br-dumbbell-ray"></i>
+                <li><a href="#">Musculação</a></li>
+                <i class="fi fi-br-user"></i>
+                <li><a href="#">Sobre mim</a></li>
+                <i class="fi fi-br-envelope"></i>
+                <li><a href="cadastro.html">Se Cadastre</a>/<a href="login.html">Login</a></li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div class="caixa">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+        <div class="container">
+                <div class="campo">
+                    <span>Nome:</span>
+                    <input id="input_nome" type="text" placeholder="Seu nome" />
+                </div>
+                <div class="campo">
+                    <span>E-mail:</span>
+                    <input id="input_email" type="text" placeholder="Seu email" />
+                </div>
+                <div class="campo">
+                    <span>Senha:</span>
+                    <input id="input_senha" type="password" placeholder="******" />
+                </div>
+                <div class="campo">
+                    <span>Confirmação da Senha:</span>
+                    <input id="input_confirmacao" type="password" placeholder="******" />
+                </div>
+                <button class="botao" onclick="cadastrar()">Cadastrar</button>
+                <div id="div_aguardar" class="loading-div">
+                    <img src="assets/circle-loading.gif" id="loading-gif" />
+                  </div>
+          
+                  <div id="div_erros_login"></div>
+        </div>
+    </div>
+
+     <!-- Footer da pagina -->
+     <div class="footer">
+        <div class="container">
+          <h4>Feito por Nicollas Bispo &hearts; SPTech &copy; 2024</h4>
+          <span class="version">v1.0.0</span>
+        </div>
+      </div>
+
+</body>
+
+</html>
+
+<script>
+
+    // Array para armazenar empresas cadastradas para validação de código de ativação 
+    let listaEmpresasCadastradas = [];
+
+    function cadastrar() {
+        // aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nome = input_nome.value;
+        var email = input_email.value;
+        var senha = input_senha.value;
+        var confirmacao = input_confirmacao.value;
+
+      
+
+
+        // variaveis de validação de texto
+        var tamanhoNome = nome.length;
+        var emailArroba = email.indexOf('@');
+        var tamanhoSenha = senha.length;
+        // Verificando se há algum campo em branco
+        if (
+            nome == "" ||
+            email == "" ||
+            senha == "" ||
+            confirmacao == "" 
+        ) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+        // validação dos campos
+        if (tamanhoNome <= 1 ||
+            emailArroba == -1 ||
+            tamanhoSenha <= 6 ||
+            senha != senha 
+        ) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                `Mensagem de erro, campos não validados!<br>
+        O nome tem que ser maior que 1!<br>
+        O email tem que ter Arroba '@'!<br>
+        O cpf tem que conter 11 numeros!<br>
+        E a senha tem que ser igual no confirmar senha!`;
+
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+
+        // Verificando se o código de ativação é de alguma empresa cadastrada
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+
+                    limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+
+        return false;
+    }
+
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+</script>

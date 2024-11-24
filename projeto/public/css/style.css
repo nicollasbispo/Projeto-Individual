@@ -1,0 +1,410 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color:#76B0A3;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+/* Vermelho Escuro (#C0392B)
+Azul Marinho (#34495E) ou #5985b1
+Cinza Claro (#ECF0F1)
+Verde Limão (#2ECC71)
+Preto ou Cinza Escuro (#2C3E50) */
+
+
+    /* css do header */
+.header{
+    height: 80px;
+    border-bottom: 2px solid #FFD700;
+    display: flex;
+    align-items: center;
+}
+
+.header .container{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* .logo{
+    display: flex;
+    justify-content: start;
+
+} */
+
+.logo img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.navbar{
+    display: flex;
+    /* justify-content: space-evenly; */
+    /* align-items: center; */
+    list-style: none;
+    gap: 20px;
+    /* width: 1000px; */
+}
+
+
+
+.navbar a{
+    text-decoration: none;                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+    color: white;   
+    font-weight: bold;
+    transition: color 0.5s, font-size 0.5s;
+}
+
+.navbar a:hover {
+    color: aqua;
+    font-size: 1.1em;
+
+}
+
+
+/* Css do banner  */
+.banner{
+    display: flex;
+    height: 80vh;
+    background-image: url(../assets/bannerIronberg.jpeg);
+    background-size: cover; 
+    position: relative;
+}
+
+.banner .texto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: large;
+  }
+
+.banner .texto p{
+    color: white;
+
+}
+
+
+/* css do conteudo  */
+.conteudo{
+    background-color: aqua;;
+    display: flex;
+    height: 50%;
+}  
+.conteudo .container{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.campos1 img{
+    width: 200px;
+    height: 200px;
+}
+
+.conteudo2 .container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items: center;
+}
+
+
+.campos2{
+    width: 40vh;
+    height: 50vh;
+    background-color: white;
+    margin: 10px;
+    border: 2px solid blue;
+    border-radius: 10px;
+}
+
+.footer {
+    border-top: 2px solid #FFD700;
+    height: 100px;
+    color: #fff;
+    display: flex;
+    font-size: 15px;
+}
+
+.footer .container {
+    justify-content: center;
+    text-align: center;
+}
+
+.version {
+    font-size: 12px;
+}
+
+
+/* Css da tela de cadastro e login */
+.caixa{
+    background: linear-gradient( to right, #76B0A3, #FAFFFA);
+    background-color: #fff;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.caixa .container{
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 12px                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
+    background-color: #76B0A3;
+    box-shadow: 0 10px 15px black;
+    
+    /* display: flex; */
+   /* justify-content: center; */
+   /* flex-direction: column; */
+   /* text-align: start; */
+}
+
+.campo span {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+ .campo input{
+    width: 85%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.campo input:focus {
+  border-color: #2ECC71;
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+}
+ .container button{
+    padding: 10px ;
+    background-color: #2ECC71;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.caixa .container button:hover {
+    background-color: #27AE60;
+    transform: scale(1.05);
+}
+
+/* Footer */
+.footer {
+    border-top: 2px solid #FFD700;
+    height: 100px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    text-align: center;
+}
+
+.version {
+    font-size: 12px;
+}
+
+
+/* css dos gifs de carregamento */
+
+.loading-div {
+    width: 50px;
+    display: none;
+  }
+  
+  .loading-div img {
+    height: 50px;
+    width: 50px;
+  }
+  
+  #div_erros_login {
+    display: none
+  }
+
+  /* css do alertas de erros */
+  .alerta_erro{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #ED145B 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+  }
+  
+  .card_erro #mensagem_erro{
+    font-weight: 500;
+    font-size: 20px;
+  }
+  
+
+
+
+  /* css para dashboard */
+  /* SIMULADOR */
+
+.simulador {
+    color: white;
+  }
+  
+  .simulador .container {
+    flex-direction: column;
+    overflow: scroll; 
+    height: var(--tamanho-simulador);
+  }
+  
+  /* ALERTA */
+  
+  #alerta {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .mensagem-alarme {
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    height: 80px;
+    margin: 10px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .mensagem-alarme h3 {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .mensagem-alarme .informacao {
+    width: 66%;
+  }
+  
+  .alarme-sino {
+    width: 48px;
+    height: 48px;
+    animation-name: bell;
+    animation-duration: 4s;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1157/1157000.png');
+    background-size: cover;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes bell {
+    0%   {transform: rotate(25deg)}
+    25%  {transform: rotate(-25deg)}
+    50%  {transform: rotate(25deg)}
+    75%  {transform: rotate(-25deg)}
+    100% {transform: rotate(25deg)}
+  }
+
+
+
+
+  /* css do quiz */
+  /* Não usar pure white or pure black: https://uxplanet.org/basicdesign-never-use-pure-black-in-typography-36138a3327a6 */
+/* The 4-point grid system: https://medium.com/@sainzkike/controlling-spacing-in-design-systems-multiple-spacing-9bf1afec87f */
+
+:root {
+    --primary-brand-color: #ED145B;
+    --secondary-brand-color: #0762C8;
+    --success: #198754;
+    --success-dark: #095c36;
+    --success-light: #9dd3ba;
+    --warning: #ffc107;
+    --warning-dark: #705400;
+    --warning-light: #fdebb3;
+    --danger: #dc3545;
+    --danger-dark: #990c19;
+    --danger-light: #f0c1c6;
+    --new-gray: #CCCCCC;
+    --new-black: #212427;
+    --new-white: #E8E8E8;
+}
+
+/* body {
+    color: var(--new-black);
+    background-color: var(--new-white);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+} */
+/* 
+button {
+    font-family: monospace;
+    font-weight: bold;
+} */
+
+.flex-colunar {
+    display: flex;
+    flex-direction: column;
+}
+
+.width-fit-content {
+    width: fit-content;
+}
+
+.border-primary {
+    border: 3px solid var(--primary-brand-color);
+}
+
+.border-secondary {
+    border: 3px solid var(--secondary-brand-color);
+}
+
+.padding-8 {
+    padding: 8px;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-success-with-bg {
+    color: var(--success-dark);
+    background-color: var(--success-light);
+}
+
+.text-warning-with-bg {
+    color: var(--warning-dark);
+    background-color: var(--warning-light);
+}
+
+.text-danger-with-bg {
+    color: var(--danger-dark);
+    background-color: var(--danger-light);
+}
+
+.text-new-gray {
+    color: var(--new-gray);
+}
