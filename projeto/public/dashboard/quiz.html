@@ -23,7 +23,7 @@
         <div class="buttonsmeio">
             <button><a href="../index.html">HOME</a></button>
             <button><a href="quiz.html">QUIZ</a></button>
-            <button>PONTUAÇÃO</button>
+            <button><a href="dashboard.html">PONTUAÇÃO</a></button>
             <button>SAIR</button>
         </div>
     </aside>
@@ -99,8 +99,7 @@ var idUsuario = Number(sessionStorage.ID_USUARIO);
         console.log(sessionStorage.ID_USUARIO);
 
 function FinalizarQuiz(){
-    let tentativa = 0
-    tentativa++
+    
     fetch("/pontuacao/finalizar", {
             method: "POST",
             headers: {
@@ -139,78 +138,78 @@ function FinalizarQuiz(){
 
 
     const listaDeQuestoes =[
-    // {
-    //     pergunta: "Qual é o principal músculo trabalhado no agachamento livre?",
-    //     alternativaA: "Peitoral maior",
-    //     alternativaB: "Bíceps",
-    //     alternativaC: "Quadríceps",
-    //     alternativaD: "Deltóides",
-    //     alternativaCorreta: "alternativaC"
-    // },
-    // {
-    //     pergunta: "Qual exercício é conhecido por trabalhar principalmente os músculos das costas?",
-    //     alternativaA: "Supino reto",
-    //     alternativaB: "Rosca direta",
-    //     alternativaC: "Remada curvada",
-    //     alternativaD: "Elevação lateral",
-    //     alternativaCorreta: "alternativaC"
-    // },
-    // {
-    //     pergunta: "O que significa 'RM' na musculação?",
-    //     alternativaA: "Repetição máxima",
-    //     alternativaB: "Ritmo muscular",
-    //     alternativaC: "Resistência média",
-    //     alternativaD: "Rotina de musculação",
-    //     alternativaCorreta: "alternativaA"
-    // },
-    // {
-    //     pergunta: "Qual suplemento é comumente usado para aumentar força e energia?",
-    //     alternativaA: "Creatina",
-    //     alternativaB: "BCAA",
-    //     alternativaC: "Whey protein",
-    //     alternativaD: "Cafeína",
-    //     alternativaCorreta: "alternativaA"
-    // },
-    // {
-    //     pergunta: "Qual é o objetivo principal do treino de hipertrofia?",
-    //     alternativaA: "Reduzir gordura corporal",
-    //     alternativaB: "Melhorar flexibilidade",
-    //     alternativaC: "Aumentar a massa muscular",
-    //     alternativaD: "Perder peso",
-    //     alternativaCorreta: "alternativaC"
-    // },
-    // {
-    //     pergunta: "Qual exercício foca no fortalecimento do bíceps braquial?",
-    //     alternativaA: "Rosca direta",
-    //     alternativaB: "Agachamento livre",
-    //     alternativaC: "Levantamento terra",
-    //     alternativaD: "Supino inclinado",
-    //     alternativaCorreta: "alternativaA"
-    // },
-    // {
-    //     pergunta: "Qual músculo é trabalhado no levantamento terra?",
-    //     alternativaA: "Glúteo máximo",
-    //     alternativaB: "Panturrilhas",
-    //     alternativaC: "Peitoral maior",
-    //     alternativaD: "Isquiotibiais",
-    //     alternativaCorreta: "alternativaD"
-    // },
-    // {
-    //     pergunta: "Qual é o nome do músculo localizado na parte posterior do braço?",
-    //     alternativaA: "Tríceps braquial",
-    //     alternativaB: "Bíceps braquial",
-    //     alternativaC: "Deltoide",
-    //     alternativaD: "Trapézio",
-    //     alternativaCorreta: "alternativaA"
-    // },
-    // {
-    //     pergunta: "Qual exercício trabalha principalmente os peitorais?",
-    //     alternativaA: "Supino reto",
-    //     alternativaB: "Agachamento",
-    //     alternativaC: "Remada curvada",
-    //     alternativaD: "Rosca martelo",
-    //     alternativaCorreta: "alternativaA"
-    // },
+    {
+        pergunta: "Qual é o principal músculo trabalhado no agachamento livre?",
+        alternativaA: "Peitoral maior",
+        alternativaB: "Bíceps",
+        alternativaC: "Quadríceps",
+        alternativaD: "Deltóides",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "Qual exercício é conhecido por trabalhar principalmente os músculos das costas?",
+        alternativaA: "Supino reto",
+        alternativaB: "Rosca direta",
+        alternativaC: "Remada curvada",
+        alternativaD: "Elevação lateral",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "O que significa 'RM' na musculação?",
+        alternativaA: "Repetição máxima",
+        alternativaB: "Ritmo muscular",
+        alternativaC: "Resistência média",
+        alternativaD: "Rotina de musculação",
+        alternativaCorreta: "alternativaA"
+    },
+    {
+        pergunta: "Qual suplemento é comumente usado para aumentar força e energia?",
+        alternativaA: "Creatina",
+        alternativaB: "BCAA",
+        alternativaC: "Whey protein",
+        alternativaD: "Cafeína",
+        alternativaCorreta: "alternativaA"
+    },
+    {
+        pergunta: "Qual é o objetivo principal do treino de hipertrofia?",
+        alternativaA: "Reduzir gordura corporal",
+        alternativaB: "Melhorar flexibilidade",
+        alternativaC: "Aumentar a massa muscular",
+        alternativaD: "Perder peso",
+        alternativaCorreta: "alternativaC"
+    },
+    {
+        pergunta: "Qual exercício foca no fortalecimento do bíceps braquial?",
+        alternativaA: "Rosca direta",
+        alternativaB: "Agachamento livre",
+        alternativaC: "Levantamento terra",
+        alternativaD: "Supino inclinado",
+        alternativaCorreta: "alternativaA"
+    },
+    {
+        pergunta: "Qual músculo é trabalhado no levantamento terra?",
+        alternativaA: "Glúteo máximo",
+        alternativaB: "Panturrilhas",
+        alternativaC: "Peitoral maior",
+        alternativaD: "Isquiotibiais",
+        alternativaCorreta: "alternativaD"
+    },
+    {
+        pergunta: "Qual é o nome do músculo localizado na parte posterior do braço?",
+        alternativaA: "Tríceps braquial",
+        alternativaB: "Bíceps braquial",
+        alternativaC: "Deltoide",
+        alternativaD: "Trapézio",
+        alternativaCorreta: "alternativaA"
+    },
+    {
+        pergunta: "Qual exercício trabalha principalmente os peitorais?",
+        alternativaA: "Supino reto",
+        alternativaB: "Agachamento",
+        alternativaC: "Remada curvada",
+        alternativaD: "Rosca martelo",
+        alternativaCorreta: "alternativaA"
+    },
     {
         pergunta: "O que é supercompensação na musculação?",
         alternativaA: "Perda de massa muscular",
@@ -227,6 +226,7 @@ function FinalizarQuiz(){
     let tentativaIncorreta = 0
     let certas = 0
     let erradas = 0
+    let tentativa = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 console.log(certas)
@@ -374,6 +374,7 @@ console.log(certas)
         let textoParaMensagemFinal = null
         let classComCoresParaMensagemFinal = null
         const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+        tentativa++
 
         if (porcentagemFinalDeAcertos <= 0.3) {
             textoParaMensagemFinal = "Precisa se esforçar mais..."

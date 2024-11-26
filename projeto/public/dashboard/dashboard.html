@@ -32,17 +32,17 @@
         <div class="tela-principal">
             <div class="kpis">
                 <div class="kpi">
-                    <h3>KPI 1</h3>
-                    <p>RESULTADO</p>
+                    <h3>Maior acerto</h3>
+                    <p id="maior"></p>
                 </div>
                 <div class="kpi">
                     <h3>KPI 2</h3>
-                    <p>RESULTADO</p>
+                    <p id="pontuacaoMedia"></p>
                 </div>
-                <div class="kpi">
+                <!-- <div class="kpi">
                     <h3>KPI 3</h3>
-                    <p>RESULTADO</p>
-                </div>
+                    <p id="kp"></p>
+                </div> -->
             </div>
             <div class="grafico">
                 <canvas id="myChart"></canvas>
@@ -54,45 +54,18 @@
 </html>
 <script>
     let chartInstance;
-    function gerarGrafico() {
+    function gerarGrafico(idUsuario = sessionStorage.ID_USUARIO) {
+        var ctx = document.getElementById('myChart');
         
-      
-
-        fetch(`/dashboard/atualizarGrafico/`, {
-            method: 'GET',
-        })
-            .then((response) => {
-                if (response.ok) {
-                    response.json()
-                } else {
-                    console.error('Nenhuma tentativa inserida')
-                }
-            })
-            .then(json => {
-                console.log("Tentativa realizada");
-                for (var i = 0; i < json.length; i++) {
-                    if(json[i].tentativa == 0){
-                    chartInstance.data.labels.push(json[i].tentativa);
-                }
-                if(json[i].certas == 0){
-                    chartInstance.data.datasets[0].data.push(json[i].certas);
-                }
-                if(json[i.erradas == 0]){
-                    chartInstance.data.datasets[1].data.push(json[i].erradas);
-                }
-                }
-            })
-
-           var ctx = document.getElementById('myChart');
-        
-        chartInstance = new Chart(ctx, {
+        //data.data.datasets[0 - 1].data
+        const data = { 
             type: "bar",
             data: {
-                labels: ["1"],
+                labels: [],
                 datasets: [
                     {
                         label: "certas",
-                        data: [0,1,2,3,4,5,6,7,8,9,10],
+                        data: [0, 3],
                         backgroundColor: [
                           "rgba(0, 0, 0, 1)",
 
@@ -106,7 +79,7 @@
                     },
                     {
                         label: "erradas",
-                        data: [0,1,2,3,4,5,6,7,8,9,10],
+                        data: [0, 2],
                         backgroundColor: [
                           "rgba(255, 255, 255)",
                         ],
@@ -152,7 +125,43 @@
     },
   },
 },
-});
+}
+
+
+        chartInstance = new Chart(ctx, data);
+        fetch(`/dashboard/atualizarGrafico/${idUsuario}`, {
+            method: 'GET',
+        })
+        //quando
+            .then((response) => {
+                    response.json().then((res) => {
+                        console.log(res)
+                        data.data.datasets[0].data = [];
+                        data.data.datasets[1].data = [];
+                
+                        data.data.labels = [];
+                        let labelatual = 1;
+                        const maior = document.getElementById('maior');
+                        const pontuacao = document.getElementById('pontuacaoMedia');
+                        let maiorvalor = 0;
+                        let pontuacaoMedia = 0;
+                        var tentativas = []
+                        res.forEach(x => {
+                            if (maiorvalor < x.certas ) {
+                                maiorvalor = x.certas;
+                            labelatual[indeceLabel]}
+                            
+                            data.data.labels.push("Tentativa " + labelatual++);
+                            data.data.datasets[0].data.push(x.certas);
+                            data.data.datasets[1].data.push(x.erradas);
+
+                        });
+                        maior.innerHTML += `Sua porntuação foi <b>${maiorvalor}</b>`;
+                        chartInstance.update()
+                    });
+            })
+
+          
     };
 
    
