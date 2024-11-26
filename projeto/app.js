@@ -17,7 +17,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-// var dashRouter = require("./src/routes/dash");
+var dashboardRouter = require("./src/routes/dashboard");
 var pontuacaoRouter = require("./src/routes/pontuacao");
 
 
@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-// app.use("/dash", dashRouter);
+app.use("/dashboard", dashboardRouter);
 app.use("/pontuacao", pontuacaoRouter);
 
 

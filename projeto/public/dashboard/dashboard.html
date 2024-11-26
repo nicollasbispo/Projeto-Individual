@@ -1,55 +1,276 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <link rel="icon" href="images/favicon.png" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Muscle</title>
-    <script src="js/script.js"></script>
     <link rel="stylesheet" href="../css/dashboards.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
-<body>
-  <div class="conteiner-quiz">
-    <aside>
-        <div class="img-aside">
-            <img src="../assets/paiMusculacao.jpg" alt="">
+<body onload="gerarGrafico()">
+    <div class="conteiner-quiz">
+        <aside>
+            <div class="img-aside">
+                <img src="../assets/paiMusculacao.jpg" alt="">
+            </div>
+            <div class="bemvindo">
+                Bem-Vindo
+            </div>
+            <div class="buttonsmeio">
+                <button><a href="../index.html">HOME</a></button>
+                <button><a href="quiz.html">QUIZ</a></button>
+                <button>PONTUAÇÃO</button>
+                <button>SAIR</button>
+            </div>
+        </aside>
+        <div class="tela-principal">
+            <div class="kpis">
+                <div class="kpi">
+                    <h3>KPI 1</h3>
+                    <p>RESULTADO</p>
+                </div>
+                <div class="kpi">
+                    <h3>KPI 2</h3>
+                    <p>RESULTADO</p>
+                </div>
+                <div class="kpi">
+                    <h3>KPI 3</h3>
+                    <p>RESULTADO</p>
+                </div>
+            </div>
+            <div class="grafico">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
-        <div class="bemvindo">
-            Bem-Vindo
-        </div>
-        <div class="buttonsmeio">
-            <button><a href="../index.html">HOME</a></button>
-            <button><a href="quiz.html">QUIZ</a></button>
-            <button>PONTUAÇÃO</button>
-            <button>SAIR</button>
-        </div>
-    </aside>
-
-    <div class="tela-grafico">
-      <div class="grafico">
-                
-      </div>
-
-    <div class="kpis">
-        <div class="kpi">
-            <h3>KPI 1</h3>
-            <p>RESULTADO</p>
-        </div>
-        <div class="kpi">
-            <h3>KPI 2</h3>
-            <p>RESULTADO</p>
-        </div>
-        <div class="kpi">
-            <h3>KPI 3</h3>
-            <p>RESULTADO</p>
-        </div>
-
     </div>
-
-  
-  </div>
 </body>
+
 </html>
+<script>
+    let chartInstance;
+    function gerarGrafico() {
+        
+      
+
+        fetch(`/dashboard/atualizarGrafico/`, {
+            method: 'GET',
+        })
+            .then((response) => {
+                if (response.ok) {
+                    response.json()
+                } else {
+                    console.error('Nenhuma tentativa inserida')
+                }
+            })
+            .then(json => {
+                console.log("Tentativa realizada");
+                for (var i = 0; i < json.length; i++) {
+                    if(json[i].tentativa == 0){
+                    chartInstance.data.labels.push(json[i].tentativa);
+                }
+                if(json[i].certas == 0){
+                    chartInstance.data.datasets[0].data.push(json[i].certas);
+                }
+                if(json[i.erradas == 0]){
+                    chartInstance.data.datasets[1].data.push(json[i].erradas);
+                }
+                }
+            })
+
+           var ctx = document.getElementById('myChart');
+        
+        chartInstance = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["1"],
+                datasets: [
+                    {
+                        label: "certas",
+                        data: [0,1,2,3,4,5,6,7,8,9,10],
+                        backgroundColor: [
+                          "rgba(0, 0, 0, 1)",
+
+                        ],
+                        borderColor: [
+                          "rgba(75, 192, 192, 1)",
+                          "rgba(255, 99, 132, 1)",
+                          "rgba(54, 162, 235, 1)",
+                        ],
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "erradas",
+                        data: [0,1,2,3,4,5,6,7,8,9,10],
+                        backgroundColor: [
+                          "rgba(255, 255, 255)",
+                        ],
+                        borderColor: [
+                          "rgba(255, 255, 255)",
+                        ],
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                },
+                plugins: {
+    title: {
+      display: true,
+      text: "Pontuação",
+      color: "#000",
+      font: {
+        size: 20,
+      },
+    },
+    legend: {
+      display: true,
+      labels: {
+        color: "black",
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: "black",
+      },
+    },
+    y: {
+      ticks: {
+        color: "black",
+      },
+    },
+  },
+},
+});
+    };
+
+   
+
+
+
+
+
+
+
+    // function obterDadosGrafico() {
+    //     fetch(`/dashboard/atulizarGrafico`, { cache: "no-store" })
+    //         .then(function (response) {
+    //             if (response.ok) {
+    //                 response.json().then(function (resposta) {
+    //                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+    //                     plotarGrafico(resposta);
+    //                 });
+    //             } else {
+    //                 console.error("Nenhum dado encontrado ou erro na API");
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.error(
+    //                 `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+    //             );
+    //         });
+    // }
+
+    // function plotarGrafico(resposta) {
+    //     console.log("iniciando plotagem do gráfico...");
+
+    //     // Criando estrutura para plotar gráfico - labels
+    //     let labels = [];
+
+
+    //     // Criando estrutura para plotar gráfico - dados
+    //     let dados = {
+    //         labels: labels,
+    //         datasets: [
+    //             {
+    //                 label: "Votos",
+    //                 data: [],
+    //                 fill: false,
+    //                 backgroundColor: [
+    //                     "rgba(75, 192, 192, 0.2)",
+    //                     "rgba(255, 99, 132, 0.2)",
+    //                     "rgba(54, 162, 235, 0.2)",
+    //                 ],
+    //                 borderColor: [
+    //                     "rgba(75, 192, 192, 1)",
+    //                     "rgba(255, 99, 132, 1)",
+    //                     "rgba(54, 162, 235, 1)",
+    //                 ],
+    //                 borderWidth: 1,
+    //                 tension: 0.1,
+    //             },
+    //         ],
+    //     };
+
+    //     console.log("----------------------------------------------");
+    //     console.log(
+    //         'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":'
+    //     );
+    //     console.log(resposta);
+
+    //     // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+    //     for (i = 0; i < resposta.length; i++) {
+    //         var registro = resposta[i];
+    //         dados.datasets[0].data.push(registro.quantidade);
+    //     }
+
+    //     console.log("----------------------------------------------");
+    //     console.log("O gráfico será plotado com os respectivos valores:");
+    //     console.log("Labels:");
+    //     console.log(labels);
+    //     console.log("Dados:");
+    //     console.log(dados.datasets);
+    //     console.log("----------------------------------------------");
+
+    //     // Criando estrutura para plotar gráfico - config
+    //     const config = {
+    //         type: "bar",
+    //         data: dados,
+    //         options: {
+    //             responsive: true,
+    //             scales: {
+    //                 y: {
+    //                     beginAtZero: true,
+    //                 },
+    //             },
+    //             plugins: {
+    //                 title: {
+    //                     display: true,
+    //                     text: "VOTAÇÃO",
+    //                     color: "#FFFFFF",
+    //                     font: {
+    //                         size: 20,
+    //                     },
+    //                 },
+    //                 legend: {
+    //                     display: true,
+    //                     labels: {
+    //                         color: "white",
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //     };
+
+    //     // Adicionando gráfico criado em div na tela
+    //     myChart = new Chart(document.getElementById("myCanvas"), config);
+    // }
+
+
+
+
+
+</script>

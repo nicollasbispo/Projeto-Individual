@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 
-function finalizar(idUsuario, certas, erradas, tentativa) {
+function atualizarGrafico() {
     console.log(
       "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
       idUsuario,
@@ -10,12 +10,15 @@ function finalizar(idUsuario, certas, erradas, tentativa) {
       tentativa
     );
     var instrucao = `
-          INSERT INTO resultado (fkUsuario, certas, erradas, tentativa) VALUES (${idUsuario}, ${certas}, ${erradas}, ${tentativa});
+SELECT fkUsuario,  certas, erradas, tentativa FROM resultado ; 
       `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
   }
   
   module.exports = {
-    finalizar
+    atualizarGrafico,
   };
+
+  // where fkUsuario = ${fkUsuario} AND certas = ${certas} AND erradas = ${erradas} AND tentativa = ${tentativa}
+  //idUsuario, certas, erradas, tentativa

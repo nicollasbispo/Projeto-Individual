@@ -48,7 +48,7 @@
             </div>
             <div class="campo">
                 <span>Senha:</span>
-                <input id="input_senha" type="password" placeholder="******" />
+                <input id="input_senha" type="text" placeholder="******" />
             </div>    
                 <button class="botao" onclick="entrar()">Entrar</button>
             </div>
@@ -114,11 +114,11 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.ID_USUARIO = JSON.stringify(json.usuario)
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    // sessionStorage.ID_USUARIO = JSON.stringify(json.usuario)
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                        window.location = "../dashboard/quiz.html";
                     }, 1000); // apenas para exibir o loading
 
                 });

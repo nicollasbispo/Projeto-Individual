@@ -63,8 +63,8 @@
             <div id="botoes" class="flex-colunar padding-8">
                 <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                <button onclick="FinalizarQuiz()" id="btnFinalizarQuiz" disabled>Finalizar quiz</button>
                 <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
             </div>
 
         </div>
@@ -130,7 +130,7 @@
         btnSubmeter.disabled = false
         btnProx.disabled = true
         // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = true
+        btnFinalizarQuiz.disabled = true
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -197,7 +197,7 @@
         limparCoresBackgroundOpcoes()
     }
 
-    function tentarNovamente() {
+    function FinalizarQuiz() {
         // atualiza a página
         window.location.reload()
     }
@@ -283,7 +283,7 @@
         btnProx.disabled = true
         btnSubmeter.disabled = true
         // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = false
+        btnFinalizarQuiz.disabled = false
 
     }
 </script>
