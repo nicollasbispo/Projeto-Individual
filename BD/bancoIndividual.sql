@@ -28,7 +28,23 @@ select * from usuario;
 select * from resultado;
 delete from resultado where fkUsuario = 1;
 
-INSERT INTO resultado (fkUsuario, certas, erradas, tentativa) VALUES (1, 1, 1, (1 + (SELECT r.tentativa t FROM resultado r WHERE fkUsuario = 1 AND r.tentativa = (SELECT COALESCE(MAX(r.tentativa), 1) FROM resultado r WHERE fkUsuario = 1))));
+INSERT INTO resultado (fkUsuario, certas, erradas, tentativa)
+VALUES (
+    1,
+    1,
+    1,
+    1 + COALESCE(
+        (SELECT max(r.tentativa) 
+         FROM resultado r 
+         WHERE fkUsuario = 1), 
+        0
+    )
+);
+
+select fkUsuario, certas from resultado join usuario on idUsuario = fkUsuario;
+SELECT max(resultado.certas) as maior FROM resultado JOIN usuario ON usuario.idUsuario= resultado.fkUsuario 
+GROUP BY resultado.fkUsuario ORDER BY certa DESC LIMIT 1;
+     
 
 select fkUsuario, certas, erradas from resultado;
 
