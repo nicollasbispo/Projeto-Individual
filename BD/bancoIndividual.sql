@@ -26,5 +26,14 @@ INSERT INTO resultado (fkUsuario, certas, erradas) VALUES
 
 select * from usuario;
 select * from resultado;
+delete from resultado where fkUsuario = 1;
+
+INSERT INTO resultado (fkUsuario, certas, erradas, tentativa) VALUES (1, 1, 1, (1 + (SELECT r.tentativa t FROM resultado r WHERE fkUsuario = 1 AND r.tentativa = (SELECT COALESCE(MAX(r.tentativa), 1) FROM resultado r WHERE fkUsuario = 1))));
 
 select fkUsuario, certas, erradas from resultado;
+
+SELECT fkUsuario,  certas, erradas, tentativa FROM resultado join usuario on idUsuario = fkUsuario where 
+fkUsuario = 1; 
+
+SELECT fkUsuario,  certas, erradas, tentativa FROM usuario join resultado on idUsuario = fKUsuario
+ where fkUsuario = 2;

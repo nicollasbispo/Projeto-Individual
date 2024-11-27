@@ -2,7 +2,7 @@ var dashboardModel = require("../models/dashboardModel");
 
 function atualizarGrafico(req, res) {
     console.log(`Atualizando grafico com dados recentes...`);
-    const { idUsuario } = req.body;
+    var idUsuario = req.params.idUsuario;
     
     dashboardModel.atualizarGrafico(idUsuario)                                     
       .then(function (resultado) {                              
